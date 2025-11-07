@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dben2oo33uptc"]
+
+[ext_resource type="Script" uid="uid://wvun4k5f1eb7" path="res://Scenes/Globals/GameUI/game_ui.gd" id="1_j8bxf"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_j8bxf")
+
+[node name="LivesLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 623.0
+offset_right = 610.0
+offset_bottom = 646.0
+text = "LIVES: "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "TEST 1"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "TEST 2"
+
+[connection signal="button_down" from="VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/Button2" to="." method="_on_button_2_button_down"]

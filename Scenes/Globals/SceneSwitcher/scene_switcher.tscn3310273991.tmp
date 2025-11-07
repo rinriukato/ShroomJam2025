@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr0op1t58glv1"]
+
+[ext_resource type="PackedScene" uid="uid://dben2oo33uptc" path="res://Scenes/Globals/GameUI/game_ui.tscn" id="1_xi046"]
+[ext_resource type="Script" uid="uid://bqpphe4fkx5iv" path="res://Scenes/Globals/SceneSwitcher/scene_switcher.gd" id="1_yak7v"]
+[ext_resource type="PackedScene" uid="uid://mvgtmic05f0l" path="res://Scenes/Globals/GameManager/game_manager.tscn" id="2_yak7v"]
+
+[node name="SceneSwitcher" type="Node"]
+script = ExtResource("1_yak7v")
+
+[node name="GameManager" parent="." instance=ExtResource("2_yak7v")]
+
+[node name="GameUI" parent="." instance=ExtResource("1_xi046")]
