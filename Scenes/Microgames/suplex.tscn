@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhh0sdku6lmgl"]
+
+[ext_resource type="Script" uid="uid://cdr6ybct3pab6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/suplex.gd" id="1_3ka7g"]
+
+[node name="Suplex" type="Node"]
+script = ExtResource("1_3ka7g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AttackRatingLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="InputLog" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+text = "[]"
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "Num Suplex Needed: "
+
+[node name="NumRotationsNeeded" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "3"
+
+[node name="UpwardMotionTimer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="UpwardMotionTimer" to="." method="_on_upward_motion_timer_timeout"]
