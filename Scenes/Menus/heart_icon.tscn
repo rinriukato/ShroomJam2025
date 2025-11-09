@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://by515ske6oouo"]
+
+[ext_resource type="Texture2D" uid="uid://d2ukbvj11wue0" path="res://Assets/Sprites/MainGameUI/heart.png" id="1_70vp0"]
+
+[node name="HeartIcon" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+pivot_offset = Vector2(390, 251)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 184.0
+pivot_offset = Vector2(581, 57)
+texture = ExtResource("1_70vp0")

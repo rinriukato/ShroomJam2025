@@ -1,21 +1,28 @@
 extends Control
 
-@onready var lives_label := $LivesLabel
-@onready var game_manager := $"../GameManager"
+const max_hearts : int = 4
 
-signal button_1_pressed
-signal button_2_pressed
+@onready var heartbar := $HeartBar
+
+var heart_icons = []
+var num_hearts : int = 4
 
 func _ready() -> void:
-	_update_lives_text()
+	for heart in heartbar.get_children():
+		heart_icons.append(heart)
 
-func _update_lives_text() -> void:
-	var format_string = "Lives: {lives}"
-	var actual_string = format_string.format({"lives": str(game_manager.get_current_lives())})
-	lives_label.text = actual_string
+func remove_heart() -> void:
+	if num_hearts <= 0:
+		return
+	
+	var heart = heart_icons[num_hearts - 1]
+	heart.visible = false
+	num_hearts -= 1
 
-func _on_button_button_down() -> void:
-	emit_signal("button_1_pressed")
-
-func _on_button_2_button_down() -> void:
-	emit_signal("button_2_pressed")
+func add_heart() -> void:
+	if num_hearts >= max_hearts:
+		return
+	
+	var heart = heart_icons[num_hearts]
+	heart.visible = true
+	num_hearts += 1

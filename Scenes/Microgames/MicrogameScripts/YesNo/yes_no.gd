@@ -1,4 +1,4 @@
-extends Node
+extends Microgame
 
 enum key_inputs {LEFT, RIGHT, UP, DOWN}
 
@@ -94,8 +94,6 @@ func _check_objects_matching(respond_yes) -> void:
 		current_incorrects += 1
 	
 	if current_wins >= max_round_wins:
-		print("player wins!")
-		get_tree().quit()
+		game_finished.emit(PLAYER_WIN)
 	if current_incorrects >= max_incorrects:
-		print("player loses")
-		get_tree().quit()
+		game_finished.emit(PLAYER_LOSE)

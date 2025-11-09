@@ -9,4 +9,8 @@ script = ExtResource("1_yak7v")
 
 [node name="GameManager" parent="." instance=ExtResource("2_yak7v")]
 
+[node name="MicrogameTimer" type="Timer" parent="."]
+
 [node name="GameUI" parent="." instance=ExtResource("1_xi046")]
+
+[connection signal="timeout" from="MicrogameTimer" to="." method="_on_microgame_timer_timeout"]

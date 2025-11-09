@@ -1,6 +1,4 @@
-extends Node
-
-signal game_finished
+extends Microgame
 
 var is_food1_okay : bool = false
 var is_food2_okay : bool = false
@@ -29,7 +27,7 @@ func _restart_round() -> void:
 	current_round += 1
 	
 	if current_round >= max_rounds:
-		emit_signal("game_finished")
+		game_finished.emit(PLAYER_WIN)
 		return;
 	else:
 		_set_food_values()

@@ -1,4 +1,4 @@
-extends Node
+extends Microgame
 
 enum key_inputs {LEFT, RIGHT, UP, DOWN}
 
@@ -60,8 +60,7 @@ func _input(event: InputEvent) -> void:
 			
 			## NOTE: You need to prompt the user to keep doing these motions
 			if current_upward_motions >= num_upward_motion_needed:
-				print("Player won!")
-				get_tree().quit()
+				game_finished.emit(PLAYER_WIN)
 
 
 func _check_action() -> void:

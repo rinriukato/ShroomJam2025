@@ -1,4 +1,4 @@
-extends Node
+extends Microgame
 
 const target = preload("res://Scenes/Microgames/MicrogameScripts/Shoot/target.tscn")
 
@@ -24,5 +24,4 @@ func _on_target_destroyed():
 	print("target destroyed!")
 	target_destroyed += 1
 	if target_destroyed >= max_targets_needed:
-		print("Player Win!")
-		get_tree().quit()
+		game_finished.emit(PLAYER_WIN)
