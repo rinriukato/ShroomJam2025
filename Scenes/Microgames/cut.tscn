@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://yydvrly517qe"]
+
+[ext_resource type="Script" uid="uid://ccdafkbi7rt5" path="res://Scenes/Microgames/MicrogameScripts/Cut/cut.gd" id="1_vchra"]
+
+[node name="Cut" type="Node"]
+script = ExtResource("1_vchra")
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+position = Vector2(439, 1126)
+
+[node name="SpawnPoint1" type="Node2D" parent="SpawnPoints"]
+position = Vector2(200, 0)
+
+[node name="SpawnPoint2" type="Node2D" parent="SpawnPoints"]
+position = Vector2(400, 0)
+
+[node name="SpawnPoint3" type="Node2D" parent="SpawnPoints"]
+position = Vector2(600, 0)
+
+[node name="SpawnPoint4" type="Node2D" parent="SpawnPoints"]
+position = Vector2(800, 0)
+
+[node name="SpawnPoint5" type="Node2D" parent="SpawnPoints"]
+position = Vector2(1000, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 68.0
+offset_top = 40.0
+offset_right = 108.0
+offset_bottom = 80.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "CUTS NEEDED: "
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "3"
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

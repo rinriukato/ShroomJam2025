@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cto7ohn1jc7n4"]
+
+[ext_resource type="Texture2D" uid="uid://dd8fcktjchb75" path="res://Assets/Sprites/Cut/fish_template_cut_half.png" id="1_bdmfo"]
+
+[node name="LeftHalf" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bdmfo")

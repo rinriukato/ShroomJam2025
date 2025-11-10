@@ -9,6 +9,7 @@ const MICROGAME_YES_NO = preload("res://Scenes/Microgames/yes_no.tscn")
 const MICROGAME_GET_IT = preload("res://Scenes/Microgames/get_it.tscn")
 const MICROGAME_JUMP = preload("res://Scenes/Microgames/jump.tscn")
 const MICROGAME_LAND = preload("res://Scenes/Microgames/land.tscn")
+const MICROGAME_CUT = preload("res://Scenes/Microgames/cut.tscn")
 
 @onready var game_manager := $GameManager
 @onready var microgame_timer := $MicrogameTimer
@@ -32,6 +33,7 @@ func _ready() -> void:
 	game_array.append(MICROGAME_GET_IT)
 	game_array.append(MICROGAME_JUMP)
 	game_array.append(MICROGAME_LAND)
+	game_array.append(MICROGAME_CUT)
 	microgame_timer.wait_time = microgame_wait_time
 
 

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://da5i74pub08a3"]
+
+[ext_resource type="Script" uid="uid://dpdnos0cyf1wj" path="res://Scenes/Microgames/MicrogameScripts/Cut/cutable_object.gd" id="1_6icng"]
+[ext_resource type="Texture2D" uid="uid://ck6tybath3o02" path="res://Assets/Sprites/Cut/fish_template.png" id="1_kaolp"]
+[ext_resource type="Texture2D" uid="uid://ehsgji7oqr87" path="res://Assets/Sprites/Cut/cut_direction.png" id="3_0ikjh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6icng"]
+size = Vector2(311, 108)
+
+[node name="CutableObject" type="RigidBody2D"]
+gravity_scale = 0.407
+script = ExtResource("1_6icng")
+
+[node name="FishSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_kaolp")
+
+[node name="CutIndicator" type="Sprite2D" parent="."]
+texture = ExtResource("3_0ikjh")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(3.5, -5)
+shape = SubResource("RectangleShape2D_6icng")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2, 2)
+scale = Vector2(15, 5)
+
+[connection signal="cut_complete" from="." to="." method="_on_cut_complete"]
+[connection signal="mouse_entered" from="HitBox" to="." method="_on_hit_box_mouse_entered"]
+[connection signal="mouse_exited" from="HitBox" to="." method="_on_hit_box_mouse_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
