@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc65futsq65pl"]
+
+[ext_resource type="Script" uid="uid://bbuwmpanujwmo" path="res://Scenes/CharacterControllers/player_controller.gd" id="1_17bd4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrt6"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_17bd4")
+JUMP_VELOCITY = -500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hgrt6")

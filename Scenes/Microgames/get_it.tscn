@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckmtxg30rgnxe"]
+
+[ext_resource type="Script" uid="uid://bkhq5m6j4meiw" path="res://Scenes/Microgames/MicrogameScripts/GetIt/get_it.gd" id="1_ni2rr"]
+
+[node name="GetIt" type="Node"]
+script = ExtResource("1_ni2rr")
