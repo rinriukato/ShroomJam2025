@@ -7,6 +7,7 @@ const MICROGAME_SHOOT = preload("res://Scenes/Microgames/shoot.tscn")
 const MICROGAME_SUPLEX = preload("res://Scenes/Microgames/suplex.tscn")
 const MICROGAME_YES_NO = preload("res://Scenes/Microgames/yes_no.tscn")
 const MICROGAME_GET_IT = preload("res://Scenes/Microgames/get_it.tscn")
+const MICROGAME_JUMP = preload("res://Scenes/Microgames/jump.tscn")
 
 @onready var game_manager := $GameManager
 @onready var microgame_timer := $MicrogameTimer
@@ -28,11 +29,12 @@ func _ready() -> void:
 	#game_array.append(MICROGAME_YES_NO)
 	#game_array.append(MICROGAME_EAT_THIS)
 	game_array.append(MICROGAME_GET_IT)
+	game_array.append(MICROGAME_JUMP)
 	microgame_timer.wait_time = microgame_wait_time
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("debug"):
 		if current_game_index < game_array.size():
 			_hide_game_ui()
 			_handle_level_load(game_array[current_game_index])

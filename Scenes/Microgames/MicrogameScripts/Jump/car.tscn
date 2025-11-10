@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbg2mdghf56ec"]
+
+[ext_resource type="Script" uid="uid://def4q3fidm7l3" path="res://Scenes/Microgames/MicrogameScripts/Jump/car.gd" id="1_2cph3"]
+[ext_resource type="Texture2D" uid="uid://dechoaeitwlhx" path="res://Assets/Menu/PNG/Blue/Double/arrow_basic_e.png" id="1_qi2lq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cph3"]
+size = Vector2(70, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lulsq"]
+size = Vector2(74, 72)
+
+[node name="Car" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_2cph3")
+car_direction = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qi2lq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.5)
+shape = SubResource("RectangleShape2D_2cph3")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(2, -1)
+shape = SubResource("RectangleShape2D_lulsq")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
