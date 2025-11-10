@@ -10,8 +10,3 @@ script = ExtResource("1_17bd4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_hgrt6")
-
-[node name="JumpBuffer" type="Timer" parent="."]
-wait_time = 0.1
-
-[connection signal="timeout" from="JumpBuffer" to="." method="_on_jump_buffer_timeout"]
