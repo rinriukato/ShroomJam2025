@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://c7wc6bw0bque8"]
 
-[ext_resource type="Script" uid="uid://ba18p02fylhh3" path="res://Scenes/Microgames/jump.gd" id="1_leibp"]
+[ext_resource type="Script" uid="uid://ba18p02fylhh3" path="res://Scenes/Microgames/MicrogameScripts/Jump/jump.gd" id="1_leibp"]
 [ext_resource type="PackedScene" uid="uid://c3nqkph00um3r" path="res://Scenes/CharacterControllers/tile_map.tscn" id="1_xgkdm"]
 [ext_resource type="PackedScene" uid="uid://bbg2mdghf56ec" path="res://Scenes/Microgames/MicrogameScripts/Jump/car.tscn" id="2_lj8yu"]
 [ext_resource type="PackedScene" uid="uid://dc65futsq65pl" path="res://Scenes/CharacterControllers/character_body_2d.tscn" id="3_leibp"]

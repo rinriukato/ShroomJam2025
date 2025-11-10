@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://da7md1pxkybvi"]
+
+[ext_resource type="Script" uid="uid://hhsiiltuuvs6" path="res://Scenes/CharacterControllers/space_character.gd" id="1_a2yds"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m0bho"]
+
+[node name="SpaceCharacter" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(3, 3)
+script = ExtResource("1_a2yds")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_m0bho")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "INCOMING VELOCITY: "
+
+[node name="Label2" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "0"
