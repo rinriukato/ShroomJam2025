@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bkjvy7t3t46ug"]
+
+[ext_resource type="FontFile" uid="uid://b2v21sfhpflge" path="res://Assets/Menu/Font/Kenney Future.ttf" id="1_62etw"]
+
+[resource]
+Label/colors/font_color = Color(0.56824577, 0.90078956, 0.88604146, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 11
+Label/constants/shadow_outline_size = 10
+Label/fonts/font = ExtResource("1_62etw")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=3 uid="uid://vgmkhmnto4p0"]
+
+[ext_resource type="Texture2D" uid="uid://b4dcafwu8uomr" path="res://Assets/Menu/PNG/Grey/Double/button_rectangle_depth_gloss.png" id="1_penys"]
+[ext_resource type="Texture2D" uid="uid://b3kvqgphdfl8j" path="res://Assets/Menu/PNG/Grey/Double/button_rectangle_gloss.png" id="2_aur2u"]
+[ext_resource type="Theme" uid="uid://bkjvy7t3t46ug" path="res://Assets/Themes/text_theme.tres" id="3_5wi6m"]
+
+[node name="MainMenu" type="Node"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -795.0
+offset_top = -330.0
+offset_right = -411.0
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.96, 1.3199999)
+theme_override_constants/separation = 39
+
+[node name="StoryButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_penys")
+texture_pressed = ExtResource("2_aur2u")
+
+[node name="Label" type="Label" parent="VBoxContainer/StoryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.5
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_5wi6m")
+theme_override_font_sizes/font_size = 70
+text = "STORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Collection" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_penys")
+texture_pressed = ExtResource("2_aur2u")
+
+[node name="Label" type="Label" parent="VBoxContainer/Collection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.224495
+offset_top = -1.8484784
+offset_right = 199.22449
+offset_bottom = -1.8484802
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5521359, 1)
+theme = ExtResource("3_5wi6m")
+theme_override_font_sizes/font_size = 70
+text = "COLLECTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Option" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_penys")
+texture_pressed = ExtResource("2_aur2u")
+
+[node name="Label" type="Label" parent="VBoxContainer/Option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.04082
+offset_top = -1.4242609
+offset_right = 27.040833
+offset_bottom = -1.424263
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8775512, 1)
+theme = ExtResource("3_5wi6m")
+theme_override_font_sizes/font_size = 70
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
