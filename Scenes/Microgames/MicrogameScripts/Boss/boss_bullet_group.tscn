@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx2fr78gjs66a"]
+
+[ext_resource type="Script" uid="uid://cvyfqmmwrg86q" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss_bullet_group.gd" id="1_swwmh"]
+[ext_resource type="PackedScene" uid="uid://tscadem1t4m4" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss_bullet.tscn" id="2_hugnn"]
+
+[node name="BossBulletGroup" type="CharacterBody2D"]
+position = Vector2(310, 156)
+script = ExtResource("1_swwmh")
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2(1, -1)
+
+[node name="BossBullet" parent="Center" instance=ExtResource("2_hugnn")]
+position = Vector2(0, -80)
+rotation = 0.0
+move_independently = false
+
+[node name="BossBullet2" parent="Center" instance=ExtResource("2_hugnn")]
+position = Vector2(80, 0)
+move_independently = false
+
+[node name="BossBullet3" parent="Center" instance=ExtResource("2_hugnn")]
+position = Vector2(0, 80)
+rotation = 3.1415927
+move_independently = false
+
+[node name="BossBullet4" parent="Center" instance=ExtResource("2_hugnn")]
+position = Vector2(-80, 0)
+rotation = 4.712389
+move_independently = false
+
+[node name="ExpireTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="ExpireTimer" to="." method="_on_expire_timer_timeout"]

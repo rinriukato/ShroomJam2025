@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8rf0rmqhw8ix"]
+
+[ext_resource type="Script" uid="uid://haacjpqwfakt" path="res://Scenes/CharacterControllers/bullet_hell_character.gd" id="1_w2k22"]
+[ext_resource type="Texture2D" uid="uid://bvt6nwgxattxa" path="res://icon.svg" id="1_xnha0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2k22"]
+radius = 30.016663
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qulw5"]
+radius = 29.0
+
+[node name="BulletHellCharacter" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_w2k22")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xnha0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w2k22")
+
+[node name="BulletFireRateTimer" type="Timer" parent="."]
+wait_time = 1.1549999999999998
+
+[node name="Area2D" type="Area2D" parent="." groups=["player_hitbox"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qulw5")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="BulletFireRateTimer" to="." method="_on_bullet_fire_rate_timer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

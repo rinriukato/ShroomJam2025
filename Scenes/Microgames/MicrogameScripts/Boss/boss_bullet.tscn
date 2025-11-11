@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://tscadem1t4m4"]
+
+[ext_resource type="Texture2D" uid="uid://0r3cfjf5klqc" path="res://Assets/Sprites/Boss/bullet.png" id="1_00tbu"]
+[ext_resource type="Script" uid="uid://bc347nlgqll7v" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss_bullet.gd" id="1_28xrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28xrl"]
+size = Vector2(33, 18)
+
+[node name="BossBullet" type="CharacterBody2D"]
+rotation = 1.5707964
+script = ExtResource("1_28xrl")
+bullet_speed = 400.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_00tbu")
+
+[node name="Area2D" type="Area2D" parent="." groups=["boss_bullet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_28xrl")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

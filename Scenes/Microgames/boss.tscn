@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8wo526nam54r"]
+
+[ext_resource type="PackedScene" uid="uid://brwn8rvwptlxl" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss_enemy.tscn" id="1_p6ywa"]
+[ext_resource type="PackedScene" uid="uid://c8rf0rmqhw8ix" path="res://Scenes/CharacterControllers/bullet_hell_character.tscn" id="2_43h2r"]
+
+[node name="Boss" type="Node"]
+
+[node name="BossEnemy" parent="." instance=ExtResource("1_p6ywa")]
+position = Vector2(955, 166)
+speed = 0.5
+
+[node name="BulletHellCharacter" parent="." instance=ExtResource("2_43h2r")]
+position = Vector2(950, 969)
