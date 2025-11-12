@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage : int) -> void:
 	if is_player_invincible:
+		print("is invincible")
 		return
 	
 	health -= damage
@@ -57,3 +58,4 @@ func _on_bullet_fire_rate_timer_timeout() -> void:
 
 func _on_invincibility_timer_timeout() -> void:
 	is_player_invincible = false
+	print('is not invincible')

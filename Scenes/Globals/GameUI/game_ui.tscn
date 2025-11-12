@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dben2oo33uptc"]
+[gd_scene load_steps=4 format=3 uid="uid://dben2oo33uptc"]
 
 [ext_resource type="Script" uid="uid://wvun4k5f1eb7" path="res://Scenes/Globals/GameUI/game_ui.gd" id="1_j8bxf"]
 [ext_resource type="PackedScene" uid="uid://by515ske6oouo" path="res://Scenes/Menus/heart_icon.tscn" id="2_tycya"]
+[ext_resource type="Theme" uid="uid://ctmm53vn2rucc" path="res://Assets/Themes/text.tres" id="3_5wpi8"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -45,3 +46,22 @@ offset_right = 495.0
 layout_mode = 0
 offset_left = 772.0
 offset_right = 772.0
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -388.0
+offset_right = 15.0
+offset_bottom = -223.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(441, 256)
+theme = ExtResource("3_5wpi8")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8wo526nam54r"]
+[gd_scene load_steps=4 format=3 uid="uid://c8wo526nam54r"]
 
 [ext_resource type="PackedScene" uid="uid://brwn8rvwptlxl" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss_enemy.tscn" id="1_p6ywa"]
+[ext_resource type="Script" uid="uid://0ett85aq3sva" path="res://Scenes/Microgames/MicrogameScripts/Boss/boss.gd" id="1_ymnwh"]
 [ext_resource type="PackedScene" uid="uid://c8rf0rmqhw8ix" path="res://Scenes/CharacterControllers/bullet_hell_character.tscn" id="2_43h2r"]
 
 [node name="Boss" type="Node"]
+script = ExtResource("1_ymnwh")
 
 [node name="BossEnemy" parent="." instance=ExtResource("1_p6ywa")]
 position = Vector2(955, 166)
@@ -11,3 +13,33 @@ speed = 0.5
 
 [node name="BulletHellCharacter" parent="." instance=ExtResource("2_43h2r")]
 position = Vector2(950, 969)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerInfo" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PlayerInfo"]
+layout_mode = 2
+text = "Player Health : "
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/PlayerInfo"]
+layout_mode = 2
+text = "10"
+
+[node name="BossInfo" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/BossInfo"]
+layout_mode = 2
+text = "Boss Health : "
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/BossInfo"]
+layout_mode = 2
+
+[connection signal="boss_death" from="BossEnemy" to="." method="_on_boss_enemy_boss_death"]
+[connection signal="player_death" from="BulletHellCharacter" to="." method="_on_bullet_hell_character_player_death"]

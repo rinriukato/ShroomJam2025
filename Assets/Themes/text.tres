@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ctmm53vn2rucc"]
+
+[ext_resource type="FontFile" uid="uid://bwyli4qm7nrqs" path="res://Assets/Menu/Font/Wariowareincv2-2OOBw.ttf" id="1_xca5s"]
+
+[resource]
+default_font = ExtResource("1_xca5s")
+default_font_size = 120
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(1, 1, 1, 1)
+Label/constants/outline_size = 25
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 35
+Label/font_sizes/font_size = 120

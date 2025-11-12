@@ -10,6 +10,7 @@ var level_array = []
 var current_level
 
 func _ready() -> void:
+	randomize()
 	level_array.append(LEVEL_1)
 	level_array.append(LEVEL_2)
 	level_array.append(LEVEL_3)

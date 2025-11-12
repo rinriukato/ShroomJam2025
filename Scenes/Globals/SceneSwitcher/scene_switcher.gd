@@ -2,48 +2,61 @@ extends Node
 
 signal microgame_timeout
 
-const MICROGAME_EAT_THIS = preload("res://Scenes/Microgames/eat_this.tscn")
-const MICROGAME_SHOOT = preload("res://Scenes/Microgames/shoot.tscn")
-const MICROGAME_SUPLEX = preload("res://Scenes/Microgames/suplex.tscn")
-const MICROGAME_YES_NO = preload("res://Scenes/Microgames/yes_no.tscn")
-const MICROGAME_GET_IT = preload("res://Scenes/Microgames/get_it.tscn")
-const MICROGAME_JUMP = preload("res://Scenes/Microgames/jump.tscn")
-const MICROGAME_LAND = preload("res://Scenes/Microgames/land.tscn")
-const MICROGAME_CUT = preload("res://Scenes/Microgames/cut.tscn")
+const MICROGAMES = [
+	{"title": "Eat This!", "scene": preload("res://Scenes/Microgames/eat_this.tscn")},
+	{"title": "Shoot!", "scene": preload("res://Scenes/Microgames/shoot.tscn")},
+	{"title": "Suplex!", "scene": preload("res://Scenes/Microgames/suplex.tscn")},
+	{"title": "Yes or No?", "scene": preload("res://Scenes/Microgames/yes_no.tscn")},
+	{"title": "Get It!", "scene": preload("res://Scenes/Microgames/get_it.tscn")},
+	{"title": "Jump!", "scene": preload("res://Scenes/Microgames/jump.tscn")},
+	{"title": "Land!", "scene": preload("res://Scenes/Microgames/land.tscn")},
+	{"title": "Cut!", "scene": preload("res://Scenes/Microgames/cut.tscn")},
+]
+
+const MICROGAME_BOSS = {"title": "Defeat the Boss!", "scene": preload("res://Scenes/Microgames/boss.tscn")}
 
 @onready var game_manager := $GameManager
 @onready var microgame_timer := $MicrogameTimer
 @onready var game_ui := $GameUI
+@onready var microgame_title := $MicrogameTitle
+@onready var rest_timer := $RestTimer
+@onready var show_title_timer := $ShowTitleTimer
 
+@export var starting_wait_time : float = 3.0
+@export var rest_wait_time : float = 5.0
 @export var microgame_wait_time : float = 10.0
 @export_range(1.0, 3.0) var game_speed : float = 1.0
 
 var current_difficulty_level : int = 0
 var current_points : int = 0
 var current_lives : int = 4
-var current_level = null;
-var current_game_index : int = 0
-var game_array = []
+var current_level = null
+var microgame_queue = []
+var next_game
 
 func _ready() -> void:
-	game_array.append(MICROGAME_SHOOT)
-	game_array.append(MICROGAME_SUPLEX)
-	game_array.append(MICROGAME_YES_NO)
-	game_array.append(MICROGAME_EAT_THIS)
-	game_array.append(MICROGAME_GET_IT)
-	game_array.append(MICROGAME_JUMP)
-	game_array.append(MICROGAME_LAND)
-	game_array.append(MICROGAME_CUT)
 	microgame_timer.wait_time = microgame_wait_time
+	rest_timer.wait_time = rest_wait_time
+	show_title_timer.wait_time = rest_wait_time / 2
+	
+	
+	await get_tree().create_timer(starting_wait_time).timeout
+	_rest_between_round()
 
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug"):
-		if current_game_index < game_array.size():
-			_hide_game_ui()
-			_handle_level_load(game_array[current_game_index])
-			current_game_index += 1
-			microgame_timer.start()
+#func _process(delta: float) -> void:
+	#if Input.is_action_just_pressed("debug"):
+		## For every 10 points, do a boss, otherwise keep playing games
+		#
+		#if current_points != 0 and current_points % 10 == 0:
+			#_hide_game_ui()
+			#_handle_level_load(MICROGAME_BOSS)
+		#else:
+			#_hide_game_ui()
+			#if microgame_queue.size() <= 0:
+				#_add_games_to_queue()
+			#_handle_level_load(microgame_queue.pop_front())
+			#microgame_timer.start()
+		#
 
 
 func _handle_level_load(microgame) -> void:
@@ -64,10 +77,14 @@ func _handle_level_unloading() -> void:
 
 
 func _on_game_finished(player_win: bool) -> void:
+	if current_level == null:
+		return
+
 	_show_game_ui()
 	
 	if player_win:
 		current_points += 1
+		game_ui.set_score(current_points)
 		print("Player won!")
 	else:
 		print("Player lost microgame")
@@ -80,6 +97,29 @@ func _on_game_finished(player_win: bool) -> void:
 	# Do some animation for points?
 	
 	_handle_level_unloading()
+	_rest_between_round()
+
+func _rest_between_round() -> void:
+	rest_timer.start()
+	show_title_timer.start()
+	
+	if current_points != 0 and current_points % 10 == 0:
+		next_game = MICROGAME_BOSS
+		
+	else:
+		if microgame_queue.size() <= 0:
+			_add_games_to_queue()
+		next_game = microgame_queue.pop_front()
+		
+	
+
+func _set_up_next_round() -> void:
+	_hide_game_ui()
+	
+	if next_game["title"] != MICROGAME_BOSS["title"]:
+		microgame_timer.start()
+		
+	_handle_level_load(next_game["scene"])
 
 func _show_game_ui() -> void:
 	game_ui.visible = true
@@ -87,6 +127,19 @@ func _show_game_ui() -> void:
 func _hide_game_ui() -> void:
 	game_ui.visible = false
 
+func _add_games_to_queue() -> void:
+	microgame_queue.clear()
+
+	for microgame in MICROGAMES:
+		microgame_queue.append(microgame)
+
+	microgame_queue.shuffle()
+
 func _on_microgame_timer_timeout() -> void:
-	print("timer finished in sceneswitcher node")
 	microgame_timeout.emit()
+
+func _on_rest_timer_timeout() -> void:
+	_set_up_next_round()
+
+func _on_show_title_timer_timeout() -> void:
+	microgame_title.set_title_and_play(next_game["title"])

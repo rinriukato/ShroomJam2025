@@ -1,16 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr0op1t58glv1"]
+[gd_scene load_steps=5 format=3 uid="uid://cr0op1t58glv1"]
 
 [ext_resource type="PackedScene" uid="uid://dben2oo33uptc" path="res://Scenes/Globals/GameUI/game_ui.tscn" id="1_xi046"]
 [ext_resource type="Script" uid="uid://bqpphe4fkx5iv" path="res://Scenes/Globals/SceneSwitcher/scene_switcher.gd" id="1_yak7v"]
 [ext_resource type="PackedScene" uid="uid://mvgtmic05f0l" path="res://Scenes/Globals/GameManager/game_manager.tscn" id="2_yak7v"]
+[ext_resource type="PackedScene" uid="uid://b3kx8x832wgc5" path="res://Scenes/Menus/microgame_title.tscn" id="4_kfu54"]
 
 [node name="SceneSwitcher" type="Node"]
 script = ExtResource("1_yak7v")
 
 [node name="GameManager" parent="." instance=ExtResource("2_yak7v")]
 
-[node name="MicrogameTimer" type="Timer" parent="."]
-
 [node name="GameUI" parent="." instance=ExtResource("1_xi046")]
 
+[node name="MicrogameTitle" parent="." instance=ExtResource("4_kfu54")]
+offset_left = -439.0
+offset_top = -189.0
+offset_right = 391.0
+offset_bottom = -62.0
+
+[node name="MicrogameTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RestTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShowTitleTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="MicrogameTimer" to="." method="_on_microgame_timer_timeout"]
+[connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]
+[connection signal="timeout" from="ShowTitleTimer" to="." method="_on_show_title_timer_timeout"]
