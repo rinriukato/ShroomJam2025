@@ -8,9 +8,18 @@ const valid_rotations = [
 	[key_inputs.DOWN, key_inputs.LEFT,key_inputs.UP, key_inputs.RIGHT],
 	[key_inputs.LEFT, key_inputs.UP, key_inputs.RIGHT, key_inputs.DOWN]
 ]
+@export_group("Level 1")
+@export var level_1_rotations_needed : int = 3
+@export var level_1_num_upward_motion_needed : int = 1
 
-@export var num_rotations_needed : int = 3
-@export var num_upward_motion_needed : int = 1
+@export_group("Level 2")
+@export var level_2_rotations_needed : int = 7
+@export var level_2_num_upward_motion_needed : int = 3
+
+@export_group("Level 3")
+@export var level_3_rotations_needed : int = 15
+@export var level_3_num_upward_motion_needed : int = 5
+
 @export var min_upward_vector : float = -20.0
 
 @onready var attack_rating_label := $CanvasLayer/UI/VBoxContainer/AttackRatingLabel
@@ -18,17 +27,36 @@ const valid_rotations = [
 @onready var upward_motion_timer := $UpwardMotionTimer
 @onready var input_display := $InputDisplay
 
+var num_rotations_needed : int = 3
+var num_upward_motion_needed : int = 1
 var input_buffer : Array[key_inputs] = []
 var current_rotations : int = 0
 var current_upward_motions : int = 0
 var check_for_finisher : bool = false # Flag for checking for upward motion for 'finisher'
 var can_upward_motion : bool = true # Flag for upward motion cooldown
 
+func apply_difficulty(difficulty : int) -> void:
+	if difficulty == LEVEL.EASY:
+		num_rotations_needed = level_1_rotations_needed
+		num_upward_motion_needed = level_1_num_upward_motion_needed
+	elif difficulty == LEVEL.NORMAL:
+		num_rotations_needed = level_2_rotations_needed
+		num_upward_motion_needed = level_2_num_upward_motion_needed
+	elif  difficulty == LEVEL.HARD:
+		num_rotations_needed = level_3_rotations_needed
+		num_upward_motion_needed = level_3_num_upward_motion_needed
+	else:
+		print("A mistake has occured in difficulty! Setting to easy")
+		num_rotations_needed = level_1_rotations_needed
+		num_upward_motion_needed = level_1_num_upward_motion_needed
+
+func _ready() -> void:
+	apply_difficulty(difficulty)
+
 func _process(delta: float) -> void:
 	# Stop processing key inputs when looking for finisher
 	if check_for_finisher:
 		return
-
 	
 	if Input.is_action_just_pressed("a_key"):
 		input_buffer.append(key_inputs.LEFT)

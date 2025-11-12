@@ -4,12 +4,12 @@ signal hit_player
 
 enum Direction {LEFT = -1, RIGHT = 1}
 
-@export var speed : float = 1000.0
+@export var speed : float = 1000.0 : set = set_speed
 @export var jump_power : float  = -1000.0
 @export var gravity_mult: float = 3.2
 @export var can_go : bool = false
 @export var car_direction: Direction = Direction.LEFT
-@export var can_jump : bool
+@export var can_jump : bool : set = set_can_jump
 
 
 func _physics_process(delta: float) -> void:
@@ -33,6 +33,16 @@ func jump() -> void:
 	if can_jump:
 		velocity.y = jump_power
 		move_and_slide()
+	
+func set_speed(new_speed: float) -> void:
+	if new_speed == speed:
+		return
+	speed = new_speed
+	
+func set_can_jump(new_value: bool) -> void:
+	if can_jump == new_value:
+		return
+	can_jump = new_value
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

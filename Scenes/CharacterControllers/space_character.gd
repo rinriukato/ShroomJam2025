@@ -12,10 +12,11 @@ enum frame {IDLE = 0, ROCKET = 1}
 @export var can_move : bool = false
 @export var max_tilt : float  = 15.0
 @export var easing : float = 0.5
+@export var max_landing_speed_for_indicator : float = 600
 
-
-@onready var velocity_label := $HBoxContainer/Label2
 @onready var sprite := $Sprite2D
+@onready var landing_warning := $LandingWarning
+@onready var raycast := $RayCast2D
 
 var landing_speed : float = 0.0
 var previous_y_velocity: float = 0.0
@@ -40,8 +41,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		sprite.frame = frame.IDLE
 	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("a_key", "d_key")
 	if direction:
 		velocity.x = direction * SPEED
@@ -49,7 +48,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		sprite.rotation = move_toward(sprite.rotation, 0, easing * delta )
-
+	
+	raycast.force_raycast_update()
+	var near_floor = raycast.is_colliding()
+	print(near_floor)
+	if velocity.y >= max_landing_speed_for_indicator and near_floor:
+		landing_warning.show_warning()
+	else:
+		landing_warning.hide()
+	
 	move_and_slide()
 	
 	# Check for landing
@@ -60,7 +67,6 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		can_move = false
 	
-	velocity_label.text = str(previous_y_velocity)
 	previous_y_velocity = velocity.y
 
 func enable_movement() -> void:

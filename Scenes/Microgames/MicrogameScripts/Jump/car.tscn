@@ -7,7 +7,7 @@
 size = Vector2(93, 49.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lulsq"]
-size = Vector2(115.5, 66.5)
+size = Vector2(105, 82)
 
 [node name="Car" type="CharacterBody2D" groups=["car"]]
 scale = Vector2(2, 2)
@@ -29,7 +29,7 @@ shape = SubResource("RectangleShape2D_2cph3")
 [node name="HitBox" type="Area2D" parent="." groups=["car"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0.25, -4.75)
+position = Vector2(-0.5, 8.5)
 shape = SubResource("RectangleShape2D_lulsq")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

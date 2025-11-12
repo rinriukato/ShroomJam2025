@@ -1,13 +1,25 @@
 extends Microgame
 
-@export var cuts_needed : int = 3
-@export var max_objects : int = 5
-@export var num_bombs : int = 0
 @export var delay_between_objects : float = 0.7
 
 @onready var spawn_points := $SpawnPoints
 @onready var start_timer := $StartTimer
 @onready var cuts_needed_label := $CanvasLayer/Control/HBoxContainer/Label2
+
+@export_group("Level 1")
+@export var level_1_min_cuts_needed : int = 3
+@export var level_1_max_objects : int = 5
+@export var level_1_num_bombs : int = 0
+
+@export_group("Level 2")
+@export var level_2_min_cuts_needed : int = 5
+@export var level_2_max_objects : int = 7
+@export var level_2_num_bombs : int = 0
+
+@export_group("Level 3")
+@export var level_3_min_cuts_needed : int = 10
+@export var level_3_max_objects : int = 10
+@export var level_3_num_bombs : int = 4
 
 var cutable_object = preload("res://Scenes/Microgames/MicrogameScripts/Cut/cutable_object.tscn")
 var noncutable_object = preload("res://Scenes/Microgames/MicrogameScripts/Cut/noncutable_object.tscn")
@@ -17,7 +29,31 @@ var num_misses : int = 0
 var objects_spawned : int = 0
 var bombs_spawned : int = 0
 
+var cuts_needed : int = 3
+var max_objects : int = 5
+var num_bombs : int = 0
+
+func apply_difficulty(difficulty : int) -> void:
+	if difficulty == LEVEL.EASY:
+		cuts_needed = level_1_min_cuts_needed
+		max_objects = level_1_max_objects
+		num_bombs = level_1_num_bombs
+	elif difficulty == LEVEL.NORMAL:
+		cuts_needed = level_2_min_cuts_needed
+		max_objects = level_2_max_objects
+		num_bombs = level_2_num_bombs
+	elif  difficulty == LEVEL.HARD:
+		cuts_needed = level_3_min_cuts_needed
+		max_objects = level_3_max_objects
+		num_bombs = level_3_num_bombs
+	else:
+		print("A mistake has occured in difficulty! Setting to easy")
+		cuts_needed = level_1_min_cuts_needed
+		max_objects = level_1_max_objects
+		num_bombs = level_1_num_bombs
+
 func _ready() -> void:
+	apply_difficulty(difficulty)
 	_get_spawn_positions()
 
 func _get_spawn_positions() -> void:

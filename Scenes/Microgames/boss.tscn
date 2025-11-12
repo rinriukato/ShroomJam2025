@@ -6,10 +6,48 @@
 
 [node name="Boss" type="Node"]
 script = ExtResource("1_ymnwh")
+difficulty = 2
 
 [node name="BossEnemy" parent="." instance=ExtResource("1_p6ywa")]
 position = Vector2(955, 166)
 speed = 0.5
+move_range = null
+max_health = null
+shot_wave_time = null
+bullet_fan_count = null
+spread_angle_deg = null
+spread_shot_waves = null
+spread_shot_interval = null
+group_shot_waves = null
+group_shot_interval = null
+laser_duration = null
+level_1_max_health = null
+level_1_bullet_fan_count = null
+level_1_spread_angle_deg = null
+level_1_spread_shot_waves = null
+level_1_spread_shot_interval = null
+level_1_group_shot_waves = null
+level_1_group_shot_interval = null
+level_1_laser_duration = null
+level_1_shot_wave_time = null
+level_2_max_health = null
+level_2_bullet_fan_count = null
+level_2_spread_angle_deg = null
+level_2_spread_shot_waves = null
+level_2_spread_shot_interval = null
+level_2_group_shot_waves = null
+level_2_group_shot_interval = null
+level_2_laser_duration = null
+level_2_shot_wave_time = null
+level_3_max_health = null
+level_3_bullet_fan_count = null
+level_3_spread_angle_deg = null
+level_3_spread_shot_waves = null
+level_3_spread_shot_interval = null
+level_3_group_shot_waves = null
+level_3_group_shot_interval = null
+level_3_laser_duration = null
+level_3_shot_wave_time = null
 
 [node name="BulletHellCharacter" parent="." instance=ExtResource("2_43h2r")]
 position = Vector2(950, 969)

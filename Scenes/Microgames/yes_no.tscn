@@ -6,6 +6,7 @@
 
 [node name="YesNo" type="Node"]
 script = ExtResource("1_2ug65")
+difficulty = 2
 
 [node name="InputDisplay" parent="." instance=ExtResource("2_013mu")]
 offset_top = 331.0

@@ -2,9 +2,20 @@ extends Microgame
 
 enum key_inputs {LEFT, RIGHT, UP, DOWN}
 
-@export var max_round_wins : int = 3
-@export var max_incorrects : int = 3
+var max_correct : int = 3
+var max_incorrects : int = 3
 
+@export_group("Level 1")
+@export var level_1_max_correct : int = 3
+@export var level_1_max_incorrects : int = 3
+
+@export_group("Level 2")
+@export var level_2_max_correct : int = 7
+@export var level_2_max_incorrects : int = 1
+
+@export_group("Level 3")
+@export var level_3_max_correct : int = 10
+@export var level_3_max_incorrects : int = 0
 
 @onready var item_1_icon := $YesNoItem
 @onready var item_2_icon := $YesNoItem2
@@ -16,6 +27,24 @@ var current_incorrects : int = 0
 var item_1_val : int
 var item_2_val : int
 var num_items = 3
+
+func apply_difficulty(difficulty : int) -> void:
+	if difficulty == LEVEL.EASY:
+		max_correct = level_1_max_correct
+		max_incorrects = level_1_max_incorrects
+	elif difficulty == LEVEL.NORMAL:
+		max_correct = level_2_max_correct
+		max_incorrects = level_2_max_incorrects
+	elif  difficulty == LEVEL.HARD:
+		max_correct = level_3_max_correct
+		max_incorrects = level_3_max_incorrects
+	else:
+		print("A mistake has occured in difficulty! Setting to easy")
+		max_correct = level_1_max_correct
+		max_incorrects = level_3_max_incorrects
+
+func _ready() -> void:
+	apply_difficulty(difficulty)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("a_key"):
@@ -93,7 +122,7 @@ func _check_objects_matching(respond_yes) -> void:
 		print("Incorrect, the objects matched...")
 		current_incorrects += 1
 	
-	if current_wins >= max_round_wins:
+	if current_wins >= max_correct:
 		game_finished.emit(PLAYER_WIN)
 	if current_incorrects >= max_incorrects:
 		game_finished.emit(PLAYER_LOSE)

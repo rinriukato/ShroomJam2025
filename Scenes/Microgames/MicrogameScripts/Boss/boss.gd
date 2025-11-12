@@ -1,6 +1,5 @@
 extends Microgame
 
-
 @onready var boss_enemy := $BossEnemy
 @onready var player := $BulletHellCharacter
 
