@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://yydvrly517qe"]
+[gd_scene load_steps=3 format=3 uid="uid://yydvrly517qe"]
 
 [ext_resource type="Script" uid="uid://ccdafkbi7rt5" path="res://Scenes/Microgames/MicrogameScripts/Cut/cut.gd" id="1_vchra"]
+[ext_resource type="PackedScene" uid="uid://bxa4ixflpr228" path="res://Scenes/Microgames/MicrogameScripts/Cut/mouse_trail.tscn" id="2_fec3q"]
 
 [node name="Cut" type="Node"]
 script = ExtResource("1_vchra")
@@ -49,5 +50,7 @@ text = "3"
 [node name="StartTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="MouseTrail" parent="." instance=ExtResource("2_fec3q")]
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
