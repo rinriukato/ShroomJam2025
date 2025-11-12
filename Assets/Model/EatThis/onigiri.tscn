@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxk0jaoh4ad7"]
+
+[ext_resource type="PackedScene" uid="uid://l76qb0bt736s" path="res://Assets/Model/EatThis/onigiri.blend" id="1_s7cls"]
+[ext_resource type="Material" uid="uid://cqfqsvg8s5h28" path="res://Assets/Model/EatThis/outline.tres" id="2_ty6yh"]
+
+[node name="onigiri" instance=ExtResource("1_s7cls")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/1 = ExtResource("2_ty6yh")

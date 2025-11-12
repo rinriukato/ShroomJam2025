@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2nbqi00xtqjf"]
+
+[ext_resource type="PackedScene" uid="uid://cyeoibjl70leb" path="res://Assets/Model/EatThis/onigiri-dynamite.blend" id="1_2ql0s"]
+[ext_resource type="Material" uid="uid://qk3r55sufpgb" path="res://Assets/Model/EatThis/onigiri.tres" id="2_gg75o"]
+[ext_resource type="Material" uid="uid://cqfqsvg8s5h28" path="res://Assets/Model/EatThis/outline.tres" id="3_kf41l"]
+
+[node name="onigiri-dynamite" instance=ExtResource("1_2ql0s")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_gg75o")
+surface_material_override/1 = ExtResource("3_kf41l")
+
+[node name="Cylinder" parent="." index="1"]
+surface_material_override/1 = ExtResource("3_kf41l")

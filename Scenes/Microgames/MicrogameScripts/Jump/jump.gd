@@ -30,3 +30,12 @@ func _on_start_timer_timeout() -> void:
 
 func on_microgame_timeout() -> void:
 	game_finished.emit(PLAYER_WIN)
+
+func _on_end_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("car"):
+		game_finished.emit(PLAYER_WIN)
+
+func _on_jump_area_body_entered(body: Node2D) -> void:
+	print("Detected car in jump zone?")
+	if body.is_in_group("car") and body.has_method("jump"):
+		body.jump()

@@ -12,11 +12,7 @@ size = Vector2(115.5, 66.5)
 [node name="Car" type="CharacterBody2D" groups=["car"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_2cph3")
-speed = null
-jump_power = null
-can_go = null
 car_direction = 1
-can_jump = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2721382, 0.29867986)

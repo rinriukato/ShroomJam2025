@@ -2,26 +2,28 @@ extends Microgame
 
 var is_food1_okay : bool = false
 var is_food2_okay : bool = false
-var max_rounds : int = 3
+var max_rounds : int = 5
 var current_round = 0
 
 @onready var food1_label_left := $CanvasLayer/UI/HBoxContainer/Food1
 @onready var food2_label_right := $CanvasLayer/UI/HBoxContainer/Food2
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("a_key"):
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("a_key"):
 		if is_food1_okay:
 			print("You got a point!")
 		else:
 			print("You ate a bomb...")
-	if event.is_action_pressed("d_key"):
+			game_finished.emit(PLAYER_LOSE)
+	if Input.is_action_just_pressed("d_key"):
 		if is_food2_okay:
 			print("You got a point!")
 		else:
 			print("You ate a bomb...")
+			game_finished.emit(PLAYER_LOSE)
 	_restart_round()
-	
+
 
 func _restart_round() -> void:
 	current_round += 1

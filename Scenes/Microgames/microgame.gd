@@ -4,6 +4,8 @@ class_name Microgame extends Node
 const PLAYER_WIN : bool = true
 const PLAYER_LOSE : bool = false
 
+enum LEVEL {EASY, NORMAL, HARD}
+
 signal game_finished(player_win: bool)
 
 ## Default way for microgames to "lose" is through the scene switcher's timer
@@ -11,3 +13,6 @@ signal game_finished(player_win: bool)
 ## for this signal to fire.
 func on_microgame_timeout() -> void:
 	game_finished.emit(PLAYER_LOSE)
+
+func set_difficulty() -> void:
+	pass
