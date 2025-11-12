@@ -2,14 +2,20 @@ extends CharacterBody2D
 
 signal landed(landing_speed : float)
 
+enum frame {IDLE = 0, ROCKET = 1}
+
 @export var SPEED : float = 200
-@export var JUMP_VELOCITY : float = -50
+@export var rocket_power : float = -50
 @export var gravity_mult : float = 0.6
 @export var gravity : float = 1500
 @export var peak_height_velocity: float = -700
 @export var can_move : bool = false
+@export var max_tilt : float  = 15.0
+@export var easing : float = 0.5
+
 
 @onready var velocity_label := $HBoxContainer/Label2
+@onready var sprite := $Sprite2D
 
 var landing_speed : float = 0.0
 var previous_y_velocity: float = 0.0
@@ -29,15 +35,20 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_pressed("jump"):
-		velocity.y += JUMP_VELOCITY
-
+		velocity.y += rocket_power
+		sprite.frame = frame.ROCKET
+	else:
+		sprite.frame = frame.IDLE
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("a_key", "d_key")
 	if direction:
 		velocity.x = direction * SPEED
+		sprite.rotation = move_toward(sprite.rotation,  deg_to_rad(max_tilt) * direction, easing * delta )
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		sprite.rotation = move_toward(sprite.rotation, 0, easing * delta )
 
 	move_and_slide()
 	
