@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://djcwmijuduuvd"]
+
+[ext_resource type="Texture2D" uid="uid://bs5p1nsde13n3" path="res://Assets/Sprites/111377.png" id="1_tcgma"]
+[ext_resource type="Script" uid="uid://byvgw12qt1g3w" path="res://Scenes/Microgames/MicrogameScripts/YesNo/yes_no_item.gd" id="2_lkxmb"]
+
+[node name="YesNoItem" type="Sprite2D"]
+texture = ExtResource("1_tcgma")
+hframes = 5
+vframes = 8
+frame = 8
+script = ExtResource("2_lkxmb")

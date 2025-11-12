@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhh0sdku6lmgl"]
+[gd_scene load_steps=3 format=3 uid="uid://dhh0sdku6lmgl"]
 
 [ext_resource type="Script" uid="uid://cdr6ybct3pab6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/suplex.gd" id="1_3ka7g"]
+[ext_resource type="PackedScene" uid="uid://b70ircgtoali6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/input_display.tscn" id="2_fkg2f"]
 
 [node name="Suplex" type="Node"]
 script = ExtResource("1_3ka7g")
@@ -27,10 +28,6 @@ offset_bottom = 40.0
 [node name="AttackRatingLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
 layout_mode = 2
 
-[node name="InputLog" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
-layout_mode = 2
-text = "[]"
-
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
@@ -52,5 +49,9 @@ text = "3"
 
 [node name="UpwardMotionTimer" type="Timer" parent="."]
 wait_time = 0.05
+
+[node name="InputDisplay" parent="." instance=ExtResource("2_fkg2f")]
+offset_top = 342.0
+offset_bottom = 342.0
 
 [connection signal="timeout" from="UpwardMotionTimer" to="." method="_on_upward_motion_timer_timeout"]

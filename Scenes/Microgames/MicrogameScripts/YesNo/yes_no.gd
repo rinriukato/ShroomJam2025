@@ -2,26 +2,22 @@ extends Microgame
 
 enum key_inputs {LEFT, RIGHT, UP, DOWN}
 
-const items : Array[String] = [
-	"Cookie",
-	"Cake",
-	"Pie"
-]
-
 @export var max_round_wins : int = 3
 @export var max_incorrects : int = 3
 
-@onready var object1_label : Label = $CanvasLayer/UI/HBoxContainer/Object1
-@onready var object2_label : Label = $CanvasLayer/UI/HBoxContainer/Object2
-@onready var debug_inputs : Label = $CanvasLayer/Control/DebugInputs
+
+@onready var item_1_icon := $YesNoItem
+@onready var item_2_icon := $YesNoItem2
+@onready var input_display := $InputDisplay
 
 var input_buffer : Array[key_inputs] = []
 var current_wins : int = 0
 var current_incorrects : int = 0
+var item_1_val : int
+var item_2_val : int
+var num_items = 3
 
 func _process(delta: float) -> void:
-	debug_inputs.text = str(input_buffer)
-	
 	if Input.is_action_just_pressed("a_key"):
 		input_buffer.append(key_inputs.LEFT)
 	if Input.is_action_just_pressed("d_key"):
@@ -70,15 +66,19 @@ func _is_yes_oscillation() -> bool:
 
 func _reset_round() -> void:
 	input_buffer.clear()
-	_set_object_labels(object1_label)
-	_set_object_labels(object2_label)
+	input_display.clear_inputs()
+	var random = randi() % num_items
+	item_1_val = random
+	item_1_icon.change_appearance(random)
+	
+	random = randi() % num_items
+	item_2_val = random
+	item_2_icon.change_appearance(random)
+	
 	# Probably do some image swapping, and animations here....
-
-func _set_object_labels(label: Label) -> void:
-	label.text = items[randi() % items.size()]
 	
 func _check_objects_matching(respond_yes) -> void:
-	var is_object_matching = (object1_label.text == object2_label.text)
+	var is_object_matching = (item_1_val == item_2_val)
 	
 	if respond_yes and is_object_matching:
 		print("Correct! They did match!")

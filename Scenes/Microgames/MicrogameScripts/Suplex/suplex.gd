@@ -13,10 +13,10 @@ const valid_rotations = [
 @export var num_upward_motion_needed : int = 1
 @export var min_upward_vector : float = -20.0
 
-@onready var input_log := $CanvasLayer/UI/VBoxContainer/InputLog
 @onready var attack_rating_label := $CanvasLayer/UI/VBoxContainer/AttackRatingLabel
 @onready var num_rotations_needed_label := $CanvasLayer/Control/HBoxContainer/NumRotationsNeeded
 @onready var upward_motion_timer := $UpwardMotionTimer
+@onready var input_display := $InputDisplay
 
 var input_buffer : Array[key_inputs] = []
 var current_rotations : int = 0
@@ -28,8 +28,7 @@ func _process(delta: float) -> void:
 	# Stop processing key inputs when looking for finisher
 	if check_for_finisher:
 		return
-	
-	input_log.text = str(input_buffer)
+
 	
 	if Input.is_action_just_pressed("a_key"):
 		input_buffer.append(key_inputs.LEFT)
@@ -72,6 +71,7 @@ func _check_action() -> void:
 			check_for_finisher = true
 		
 		input_buffer.clear()
+		input_display.clear_inputs()
 		
 	else:
 		print("Not valid rotation")

@@ -1,45 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtbjmspmboi7i"]
+[gd_scene load_steps=4 format=3 uid="uid://dtbjmspmboi7i"]
 
 [ext_resource type="Script" uid="uid://cmti2gwkxibov" path="res://Scenes/Microgames/MicrogameScripts/YesNo/yes_no.gd" id="1_2ug65"]
+[ext_resource type="PackedScene" uid="uid://b70ircgtoali6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/input_display.tscn" id="2_013mu"]
+[ext_resource type="PackedScene" uid="uid://djcwmijuduuvd" path="res://Scenes/Microgames/MicrogameScripts/YesNo/yes_no_item.tscn" id="3_bxces"]
 
 [node name="YesNo" type="Node"]
 script = ExtResource("1_2ug65")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="InputDisplay" parent="." instance=ExtResource("2_013mu")]
+offset_top = 331.0
+offset_bottom = 331.0
 
-[node name="UI" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.0
+[node name="YesNoItem" parent="." instance=ExtResource("3_bxces")]
+position = Vector2(778, 548)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Object1" type="Label" parent="CanvasLayer/UI/HBoxContainer"]
-layout_mode = 2
-text = "Cookie"
-
-[node name="Object2" type="Label" parent="CanvasLayer/UI/HBoxContainer"]
-layout_mode = 2
-text = "Cookie"
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="DebugInputs" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "[]"
+[node name="YesNoItem2" parent="." instance=ExtResource("3_bxces")]
+position = Vector2(1173, 545)

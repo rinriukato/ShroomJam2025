@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b70ircgtoali6"]
+
+[ext_resource type="Script" uid="uid://dkebthe3u5742" path="res://Scenes/Microgames/MicrogameScripts/Suplex/input_display.gd" id="1_iiw2r"]
+
+[node name="InputDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("1_iiw2r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
