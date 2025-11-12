@@ -1,52 +1,75 @@
 extends Microgame
 
-var is_food1_okay : bool = false
-var is_food2_okay : bool = false
-var max_rounds : int = 5
-var current_round = 0
+@export var max_rounds : int = 5
+@export var food_offset : int = -2
+@onready var food_line := $FoodLine
 
-@onready var food1_label_left := $CanvasLayer/UI/HBoxContainer/Food1
-@onready var food2_label_right := $CanvasLayer/UI/HBoxContainer/Food2
+var num_food : int = 25
+var num_bombs : int = 25
+var can_eat_food_array :Array[bool] = []
+var food_model_array = []
+var current_offset : int = 0
+var food_eaten_safety : int = 0
+var onigiri := preload("res://Assets/Model/EatThis/onigiri.tscn")
+var onigiri_dynamite := preload("res://Assets/Model/EatThis/onigiri_dynamite.tscn")
 
-
+func _ready() -> void:
+	for i in num_food:
+		can_eat_food_array.append(true)
+	for i in num_bombs:
+		can_eat_food_array.append(false)
+	can_eat_food_array.shuffle()
+	
+	_spawn_food()
+	
 func _process(delta: float) -> void:
+	# Player ran out of food before the minimum. Fail!
+	if can_eat_food_array.size() <= 0:
+		game_finished.emit(PLAYER_LOSE)
+	
 	if Input.is_action_just_pressed("a_key"):
-		if is_food1_okay:
-			print("You got a point!")
-		else:
-			print("You ate a bomb...")
-			game_finished.emit(PLAYER_LOSE)
+		_eat_food(true)
 	if Input.is_action_just_pressed("d_key"):
-		if is_food2_okay:
-			print("You got a point!")
-		else:
-			print("You ate a bomb...")
-			game_finished.emit(PLAYER_LOSE)
-	_restart_round()
-
-
-func _restart_round() -> void:
-	current_round += 1
+		_eat_food(false)
 	
-	if current_round >= max_rounds:
+func _eat_food(did_eat_food : bool) -> void:
+	var is_food_safe = can_eat_food_array.pop_front()
+	var food_model = food_model_array.pop_front()
+	
+	if did_eat_food and is_food_safe:
+		print("player got point! Food was safe")
+		food_eaten_safety += 1
+	elif did_eat_food and not is_food_safe:
+		print("player ate a bomb")
+		game_finished.emit(PLAYER_LOSE)
+	elif not did_eat_food and is_food_safe:
+		print("player tossed a good food")
+	else:
+		print("Player tossed a bomb!")
+	
+	
+	food_model.queue_free()
+	_shift_food_forward()
+	
+	if food_eaten_safety >= max_rounds:
 		game_finished.emit(PLAYER_WIN)
-		return;
-	else:
-		_set_food_values()
-		_set_food_text(food1_label_left, is_food1_okay)
-		_set_food_text(food2_label_right, is_food2_okay)
 
-## Food1 is always randomize, food 2 is always the opposite
-func _set_food_values() -> void:
-	is_food1_okay = _randomize_bool()
-	is_food2_okay = !is_food1_okay
-	
-## Temp function, but to showcase which food is what
-func _set_food_text(label: Label, is_food : bool) -> void:
-	if is_food:
-		label.text = "FOOD"
-	else:
-		label.text = "BOMB"
+func _spawn_food() -> void:
+	for food in can_eat_food_array:
+		var item
+		
+		if food == true:
+			item = onigiri.instantiate()
+		else:
+			item = onigiri_dynamite.instantiate()
+		
+		food_line.add_child(item)
+		item.global_position = food_line.global_position
+		item.global_position.z += current_offset
+		current_offset += food_offset
+		
+		food_model_array.append(item)
 
-func _randomize_bool() -> bool:
-	return randi() % 2 == 0
+func _shift_food_forward() -> void:
+	for food in food_model_array:
+		food.global_position.z -= food_offset
