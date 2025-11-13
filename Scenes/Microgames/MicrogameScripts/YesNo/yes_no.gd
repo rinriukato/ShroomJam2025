@@ -20,6 +20,9 @@ var max_incorrects : int = 3
 @onready var item_1_icon := $YesNoItem
 @onready var item_2_icon := $YesNoItem2
 @onready var input_display := $InputDisplay
+@onready var correct_incorrect := $CorrectIncorrect
+@onready var points_needed_label := $VBoxContainer/HBoxContainer/Points
+@onready var mistakes_label := $VBoxContainer/HBoxContainer2/Mistakes
 
 var input_buffer : Array[key_inputs] = []
 var current_wins : int = 0
@@ -45,6 +48,7 @@ func apply_difficulty(difficulty : int) -> void:
 
 func _ready() -> void:
 	apply_difficulty(difficulty)
+	_update_labels()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("a_key"):
@@ -94,6 +98,7 @@ func _is_yes_oscillation() -> bool:
 
 
 func _reset_round() -> void:
+	_update_labels()
 	input_buffer.clear()
 	input_display.clear_inputs()
 	var random = randi() % num_items
@@ -111,14 +116,18 @@ func _check_objects_matching(respond_yes) -> void:
 	
 	if respond_yes and is_object_matching:
 		print("Correct! They did match!")
+		correct_incorrect.correct()
 		current_wins += 1
 	elif respond_yes and not is_object_matching:
 		print("Incorrect! Objects did match!")
+		correct_incorrect.incorrect()
 		current_incorrects += 1
 	elif not respond_yes and not is_object_matching:
 		print("Correct! They did not match!")
+		correct_incorrect.correct()
 		current_wins += 1
 	else:
+		correct_incorrect.incorrect()
 		print("Incorrect, the objects matched...")
 		current_incorrects += 1
 	
@@ -126,3 +135,7 @@ func _check_objects_matching(respond_yes) -> void:
 		game_finished.emit(PLAYER_WIN)
 	if current_incorrects >= max_incorrects:
 		game_finished.emit(PLAYER_LOSE)
+
+func _update_labels() -> void:
+	points_needed_label.text = str(current_wins) + " / " + str(max_correct)
+	mistakes_label.text = str(current_incorrects) + " / " + str(max_incorrects)

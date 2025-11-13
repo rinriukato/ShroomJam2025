@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8kyf6t7kkbyi"]
+
+[ext_resource type="Texture2D" uid="uid://c6yqmfuje8auk" path="res://Assets/Sprites/YesNo/yes-no.png" id="1_5mtvp"]
+[ext_resource type="Script" uid="uid://1qfrx8vseg8w" path="res://Scenes/Microgames/MicrogameScripts/YesNo/yes_no_character.gd" id="2_yxg57"]
+
+[node name="YesNoCharacter" type="Sprite2D"]
+texture = ExtResource("1_5mtvp")
+hframes = 3
+frame = 1
+region_enabled = true
+region_rect = Rect2(-25.5, 0, 641, 319)
+script = ExtResource("2_yxg57")

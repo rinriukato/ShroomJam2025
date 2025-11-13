@@ -1,10 +1,139 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhh0sdku6lmgl"]
+[gd_scene load_steps=13 format=3 uid="uid://dhh0sdku6lmgl"]
 
 [ext_resource type="Script" uid="uid://cdr6ybct3pab6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/suplex.gd" id="1_3ka7g"]
 [ext_resource type="PackedScene" uid="uid://b70ircgtoali6" path="res://Scenes/Microgames/MicrogameScripts/Suplex/input_display.tscn" id="2_fkg2f"]
+[ext_resource type="Theme" uid="uid://ctmm53vn2rucc" path="res://Assets/Themes/text.tres" id="2_hjsc5"]
+[ext_resource type="Texture2D" uid="uid://cuj1puoa68oq6" path="res://Assets/Sprites/Suplex/suplex.png" id="3_k7koc"]
+[ext_resource type="AudioStream" uid="uid://baisl4x4jjy66" path="res://Assets/SFX/okay.wav" id="5_obxys"]
+[ext_resource type="AudioStream" uid="uid://icw7hie08a61" path="res://Assets/SFX/good.wav" id="6_iut48"]
+[ext_resource type="AudioStream" uid="uid://byvufki2odkkh" path="res://Assets/SFX/great.wav" id="7_ju8uc"]
+[ext_resource type="AudioStream" uid="uid://d3rx6itxw2ah" path="res://Assets/SFX/excellent.wav" id="8_qscxj"]
+
+[sub_resource type="Animation" id="Animation_k7koc"]
+resource_name = "charging"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bohkb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ExcellentSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.99215686, 0.98039216, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rcmgi"]
+resource_name = "finisher"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.4666667, 1.7666667),
+"transitions": PackedFloat32Array(1, 1e-05, 1e-05, 1),
+"update": 0,
+"values": [0, 15, 18, 24]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ExcellentSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:modulate")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.0149325, 1.4881873),
+"transitions": PackedFloat32Array(0.0023226687, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.99215686, 0.98039216, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o267r"]
+_data = {
+&"RESET": SubResource("Animation_bohkb"),
+&"charging": SubResource("Animation_k7koc"),
+&"finisher": SubResource("Animation_rcmgi")
+}
 
 [node name="Suplex" type="Node"]
 script = ExtResource("1_3ka7g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.99215686, 0.98039216, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -41,17 +170,50 @@ offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
 layout_mode = 2
-text = "Num Suplex Needed: "
+theme = ExtResource("2_hjsc5")
+theme_override_font_sizes/font_size = 37
+text = "POWER: "
 
 [node name="NumRotationsNeeded" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_hjsc5")
+theme_override_font_sizes/font_size = 37
 text = "3"
 
-[node name="UpwardMotionTimer" type="Timer" parent="."]
-wait_time = 0.05
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(706, 543)
+texture = ExtResource("3_k7koc")
+hframes = 5
+vframes = 9
+frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_o267r")
+}
 
 [node name="InputDisplay" parent="." instance=ExtResource("2_fkg2f")]
 offset_top = 342.0
 offset_bottom = 342.0
 
-[connection signal="timeout" from="UpwardMotionTimer" to="." method="_on_upward_motion_timer_timeout"]
+[node name="OkSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_obxys")
+volume_db = -20.019
+bus = &"SFX"
+
+[node name="GoodSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_iut48")
+volume_db = -20.019
+bus = &"SFX"
+
+[node name="GreatSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ju8uc")
+volume_db = -20.019
+bus = &"SFX"
+
+[node name="ExcellentSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_qscxj")
+volume_db = -20.019
+bus = &"SFX"
+
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -6,8 +6,11 @@ extends CharacterBody2D
 @export var gravity_mult : float = 1.7
 @export var gravity : float = 2000
 @export var peak_height_velocity: float = -700
+@export var pitch_range := 0.1
 
 @onready var jump_buffer_timer := $JumpBuffer
+@onready var audio_player := $AudioStreamPlayer
+@onready var sprite := $Sprite2D
 
 var jump_buffer : bool = false
 
@@ -24,10 +27,17 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed("jump") or jump_buffer) and is_on_floor():
 		jump_buffer = false
 		velocity.y = JUMP_VELOCITY
+		audio_player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
+		audio_player.play()
 
 	var direction := Input.get_axis("a_key", "d_key")
 	if direction:
 		velocity.x = direction * SPEED
+		
+		if direction == 1:
+			sprite.flip_h = true
+		if direction == -1:
+			sprite.flip_h = false
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 

@@ -9,13 +9,6 @@
 
 [node name="YesNo" type="Node"]
 script = ExtResource("1_2ug65")
-level_1_max_correct = null
-level_1_max_incorrects = null
-level_2_max_correct = null
-level_2_max_incorrects = null
-level_3_max_correct = null
-level_3_max_incorrects = null
-difficulty = null
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15

@@ -10,52 +10,50 @@ const valid_rotations = [
 ]
 @export_group("Level 1")
 @export var level_1_rotations_needed : int = 3
-@export var level_1_num_upward_motion_needed : int = 1
 
 @export_group("Level 2")
 @export var level_2_rotations_needed : int = 7
-@export var level_2_num_upward_motion_needed : int = 3
 
 @export_group("Level 3")
 @export var level_3_rotations_needed : int = 15
-@export var level_3_num_upward_motion_needed : int = 5
 
 @export var min_upward_vector : float = -20.0
 
 @onready var attack_rating_label := $CanvasLayer/UI/VBoxContainer/AttackRatingLabel
 @onready var num_rotations_needed_label := $CanvasLayer/Control/HBoxContainer/NumRotationsNeeded
-@onready var upward_motion_timer := $UpwardMotionTimer
 @onready var input_display := $InputDisplay
+@onready var anim_player := $Sprite2D/AnimationPlayer
+@onready var ok_sound := $OkSound
+@onready var good_sound := $GoodSound
+@onready var great_sound := $GreatSound
+@onready var excellent_sound := $ExcellentSound
 
 var num_rotations_needed : int = 3
-var num_upward_motion_needed : int = 1
 var input_buffer : Array[key_inputs] = []
 var current_rotations : int = 0
 var current_upward_motions : int = 0
-var check_for_finisher : bool = false # Flag for checking for upward motion for 'finisher'
-var can_upward_motion : bool = true # Flag for upward motion cooldown
+var check_for_input : bool = true
 
 func apply_difficulty(difficulty : int) -> void:
 	if difficulty == LEVEL.EASY:
 		num_rotations_needed = level_1_rotations_needed
-		num_upward_motion_needed = level_1_num_upward_motion_needed
 	elif difficulty == LEVEL.NORMAL:
 		num_rotations_needed = level_2_rotations_needed
-		num_upward_motion_needed = level_2_num_upward_motion_needed
 	elif  difficulty == LEVEL.HARD:
 		num_rotations_needed = level_3_rotations_needed
-		num_upward_motion_needed = level_3_num_upward_motion_needed
 	else:
 		print("A mistake has occured in difficulty! Setting to easy")
 		num_rotations_needed = level_1_rotations_needed
-		num_upward_motion_needed = level_1_num_upward_motion_needed
 
 func _ready() -> void:
 	apply_difficulty(difficulty)
+	_update_text()
+	anim_player.play("charging")
 
 func _process(delta: float) -> void:
-	# Stop processing key inputs when looking for finisher
-	if check_for_finisher:
+	if not check_for_input:
+		input_buffer.clear()
+		input_display.clear_inputs()
 		return
 	
 	if Input.is_action_just_pressed("a_key"):
@@ -70,40 +68,22 @@ func _process(delta: float) -> void:
 	if input_buffer.size() >= 4:
 		input_buffer = input_buffer.slice(-4)
 		_check_action()
-	
-func _input(event: InputEvent) -> void:
-	if not check_for_finisher:
-		return
-	
-	if event is InputEventMouseMotion:
-		print(event.relative)
-		
-		# An "upward mouse motion" is indicated by the y vector being negative,
-		# We generally want a fast upward motion, so non -1 vector
-		if can_upward_motion and event.relative.y <= min_upward_vector:
-			current_upward_motions += 1
-			can_upward_motion = false
-			upward_motion_timer.start()
-			
-			## NOTE: You need to prompt the user to keep doing these motions
-			if current_upward_motions >= num_upward_motion_needed:
-				game_finished.emit(PLAYER_WIN)
-
 
 func _check_action() -> void:
 	if _check_valid_clockwise_rotation():
 		print("Valid rotation!")
+		attack_rating_label.text = _get_attack_label_text()
 		current_rotations += 1
 		_update_text()
 		if current_rotations >= num_rotations_needed:
-			check_for_finisher = true
+			anim_player.play("finisher")
+			check_for_input = false
 		
 		input_buffer.clear()
 		input_display.clear_inputs()
 		
 	else:
 		print("Not valid rotation")
-	
 	pass
 
 ## This function checks for a valid rotation:
@@ -123,17 +103,21 @@ func _check_valid_clockwise_rotation() -> bool:
 		return false
 	
 func _update_text() -> void:
-	num_rotations_needed_label.text = str(num_rotations_needed - current_rotations)
-	attack_rating_label.text = _get_attack_label_text()
+	num_rotations_needed_label.text = str(current_rotations) + " / " + str(num_rotations_needed)
 
 ## TODO: Replace this with actual mario and luigi attack ratings and sfx
 func _get_attack_label_text() -> String:
-	if current_rotations == num_rotations_needed:
-		return "EXCELLENT"
-	elif current_rotations >= floor(num_rotations_needed/2):
-		return "GREAT"
+	if current_rotations >= floor(num_rotations_needed/2):
+		great_sound.play()
+		return "Great"
+	elif current_rotations >= floor(num_rotations_needed/3):
+		good_sound.play()
+		return "Good"
 	else:
-		return "GOOD"
+		ok_sound.play()
+		return "Okay"
 
-func _on_upward_motion_timer_timeout() -> void:
-	can_upward_motion = true
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "finisher":
+		game_finished.emit(PLAYER_WIN)
