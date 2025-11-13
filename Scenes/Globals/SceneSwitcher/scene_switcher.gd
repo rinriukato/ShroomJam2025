@@ -15,12 +15,12 @@ const MICROGAMES = [
 
 const MICROGAME_BOSS = {"title": "Defeat the Boss!", "scene": preload("res://Scenes/Microgames/boss.tscn")}
 
-@onready var game_manager := $GameManager
 @onready var microgame_timer := $MicrogameTimer
 @onready var game_ui := $GameUI
 @onready var microgame_title := $MicrogameTitle
 @onready var rest_timer := $RestTimer
 @onready var show_title_timer := $ShowTitleTimer
+@onready var transition_anim_player := $Transition/TransitionAnimation
 
 @export var starting_wait_time : float = 3.0
 @export var rest_wait_time : float = 5.0
@@ -36,6 +36,9 @@ var microgame_queue = []
 var next_game
 
 func _ready() -> void:
+	transition_anim_player.play("fadein")
+	await transition_anim_player.animation_finished
+	
 	microgame_timer.wait_time = microgame_wait_time
 	rest_timer.wait_time = rest_wait_time
 	show_title_timer.wait_time = rest_wait_time / 2

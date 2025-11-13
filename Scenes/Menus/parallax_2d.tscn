@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bye15gxg4jyyn"]
+
+[ext_resource type="Texture2D" uid="uid://oac0fly2jvwh" path="res://Assets/background.png" id="1_aokdv"]
+
+[node name="Parallax2D" type="Parallax2D"]
+scroll_offset = Vector2(-11, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aokdv")

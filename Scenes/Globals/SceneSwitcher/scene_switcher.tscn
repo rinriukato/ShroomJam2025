@@ -1,14 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://cr0op1t58glv1"]
+[gd_scene load_steps=7 format=3 uid="uid://cr0op1t58glv1"]
 
 [ext_resource type="PackedScene" uid="uid://dben2oo33uptc" path="res://Scenes/Globals/GameUI/game_ui.tscn" id="1_xi046"]
 [ext_resource type="Script" uid="uid://bqpphe4fkx5iv" path="res://Scenes/Globals/SceneSwitcher/scene_switcher.gd" id="1_yak7v"]
-[ext_resource type="PackedScene" uid="uid://mvgtmic05f0l" path="res://Scenes/Globals/GameManager/game_manager.tscn" id="2_yak7v"]
 [ext_resource type="PackedScene" uid="uid://b3kx8x832wgc5" path="res://Scenes/Menus/microgame_title.tscn" id="4_kfu54"]
+
+[sub_resource type="Animation" id="Animation_yak7v"]
+resource_name = "fadein"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kfu54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tv33q"]
+_data = {
+&"RESET": SubResource("Animation_kfu54"),
+&"fadein": SubResource("Animation_yak7v")
+}
 
 [node name="SceneSwitcher" type="Node"]
 script = ExtResource("1_yak7v")
-
-[node name="GameManager" parent="." instance=ExtResource("2_yak7v")]
 
 [node name="GameUI" parent="." instance=ExtResource("1_xi046")]
 
@@ -34,6 +67,16 @@ one_shot = true
 
 [node name="ShowTitleTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Transition" type="ColorRect" parent="."]
+offset_right = 1513.0
+offset_bottom = 1180.0
+color = Color(0, 0, 0, 1)
+
+[node name="TransitionAnimation" type="AnimationPlayer" parent="Transition"]
+libraries = {
+&"": SubResource("AnimationLibrary_tv33q")
+}
 
 [connection signal="timeout" from="MicrogameTimer" to="." method="_on_microgame_timer_timeout"]
 [connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]
