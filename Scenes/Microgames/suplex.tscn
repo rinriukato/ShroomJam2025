@@ -5,7 +5,6 @@
 
 [node name="Suplex" type="Node"]
 script = ExtResource("1_3ka7g")
-difficulty = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

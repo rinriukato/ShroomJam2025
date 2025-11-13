@@ -6,7 +6,6 @@
 
 [node name="Boss" type="Node"]
 script = ExtResource("1_ymnwh")
-difficulty = 2
 
 [node name="BossEnemy" parent="." instance=ExtResource("1_p6ywa")]
 position = Vector2(955, 166)

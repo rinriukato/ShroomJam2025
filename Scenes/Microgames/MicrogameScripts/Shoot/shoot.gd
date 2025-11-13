@@ -9,7 +9,7 @@ const target = preload("res://Scenes/Microgames/MicrogameScripts/Shoot/target.ts
 @export var level_1_target_speeds : Array[float] = [300]
 
 @export_group("Level 2")
-@export var level_2_max_targets : int = 100
+@export var level_2_max_targets : int = 10
 @export var level_2_can_move : bool = true
 @export var level_2_max_shots : int = 9999
 @export var level_2_target_speeds : Array[float] = [300, 500]

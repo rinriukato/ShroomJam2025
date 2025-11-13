@@ -17,6 +17,14 @@ offset_left = -439.0
 offset_top = -189.0
 offset_right = 391.0
 offset_bottom = -62.0
+text = ""
+
+[node name="Notification" parent="." instance=ExtResource("4_kfu54")]
+offset_left = -439.0
+offset_top = -189.0
+offset_right = 391.0
+offset_bottom = -62.0
+text = ""
 
 [node name="MicrogameTimer" type="Timer" parent="."]
 one_shot = true

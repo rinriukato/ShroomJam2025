@@ -20,5 +20,5 @@ func set_difficulty() -> void:
 	pass
 
 func init(difficulty_value : int) -> void:
-	difficulty = difficulty
+	difficulty = difficulty_value
 	print("Initialized with difficulty:", difficulty)

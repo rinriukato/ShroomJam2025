@@ -4,7 +4,6 @@
 
 [node name="Land" type="Node"]
 script = ExtResource("1_tjbf3")
-difficulty = 1
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 1.5

@@ -26,6 +26,7 @@ const MICROGAME_BOSS = {"title": "Defeat the Boss!", "scene": preload("res://Sce
 @export var rest_wait_time : float = 5.0
 @export var microgame_wait_time : float = 10.0
 @export_range(1.0, 3.0) var game_speed : float = 1.0
+@export var next_difficulty_threshold : int = 11
 
 var current_difficulty_level : int = 0
 var current_points : int = 0
@@ -39,30 +40,14 @@ func _ready() -> void:
 	rest_timer.wait_time = rest_wait_time
 	show_title_timer.wait_time = rest_wait_time / 2
 	
-	
 	await get_tree().create_timer(starting_wait_time).timeout
 	_rest_between_round()
-
-#func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("debug"):
-		## For every 10 points, do a boss, otherwise keep playing games
-		#
-		#if current_points != 0 and current_points % 10 == 0:
-			#_hide_game_ui()
-			#_handle_level_load(MICROGAME_BOSS)
-		#else:
-			#_hide_game_ui()
-			#if microgame_queue.size() <= 0:
-				#_add_games_to_queue()
-			#_handle_level_load(microgame_queue.pop_front())
-			#microgame_timer.start()
-		#
 
 
 func _handle_level_load(microgame) -> void:
 	var next_level = microgame.instantiate()
+	next_level.init(current_difficulty_level)
 	call_deferred("add_child", next_level)
-	
 	next_level.connect("game_finished", Callable(self, "_on_game_finished"))
 	self.connect("microgame_timeout", Callable(next_level, "on_microgame_timeout"))
 	
@@ -100,6 +85,12 @@ func _on_game_finished(player_win: bool) -> void:
 	_rest_between_round()
 
 func _rest_between_round() -> void:
+	if current_points >= next_difficulty_threshold and current_difficulty_level < 2:
+		next_difficulty_threshold += next_difficulty_threshold
+		current_difficulty_level += 1
+		microgame_title.set_title_and_play('LEVEL UP!')
+		await get_tree().create_timer(3.0).timeout
+		
 	rest_timer.start()
 	show_title_timer.start()
 	

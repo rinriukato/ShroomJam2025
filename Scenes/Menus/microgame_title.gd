@@ -11,7 +11,3 @@ func set_title_and_play(new_title: String) -> void:
 	text = new_title
 	
 	anim_player.play("show_title")
-
-#func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("debug"):
-		#anim_player.play("show_title")

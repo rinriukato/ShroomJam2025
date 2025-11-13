@@ -4,7 +4,6 @@
 
 [node name="EatThis" type="Node"]
 script = ExtResource("1_uyrdm")
-difficulty = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9783576, 0.20692143, 0, -0.20692143, 0.9783576, 0, 1.6191893, 3.3130832)
