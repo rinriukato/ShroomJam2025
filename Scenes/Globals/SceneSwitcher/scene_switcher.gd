@@ -21,6 +21,7 @@ const MICROGAME_BOSS = {"title": "Defeat the Boss!", "scene": preload("res://Sce
 @onready var rest_timer := $RestTimer
 @onready var show_title_timer := $ShowTitleTimer
 @onready var transition_anim_player := $Transition/TransitionAnimation
+@onready var transition_panel := $Transition
 
 @export var starting_wait_time : float = 3.0
 @export var rest_wait_time : float = 5.0
@@ -38,6 +39,7 @@ var next_game
 func _ready() -> void:
 	transition_anim_player.play("fadein")
 	await transition_anim_player.animation_finished
+	transition_panel.visible = false
 	
 	microgame_timer.wait_time = microgame_wait_time
 	rest_timer.wait_time = rest_wait_time

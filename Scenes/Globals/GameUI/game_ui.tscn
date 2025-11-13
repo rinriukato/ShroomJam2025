@@ -1,8 +1,118 @@
-[gd_scene load_steps=4 format=3 uid="uid://dben2oo33uptc"]
+[gd_scene load_steps=19 format=3 uid="uid://dben2oo33uptc"]
 
 [ext_resource type="Script" uid="uid://wvun4k5f1eb7" path="res://Scenes/Globals/GameUI/game_ui.gd" id="1_j8bxf"]
+[ext_resource type="Texture2D" uid="uid://bncka138a6303" path="res://Assets/Sprites/MainGameUI/background-game.png" id="2_gv7mj"]
 [ext_resource type="PackedScene" uid="uid://by515ske6oouo" path="res://Scenes/Menus/heart_icon.tscn" id="2_tycya"]
 [ext_resource type="Theme" uid="uid://ctmm53vn2rucc" path="res://Assets/Themes/text.tres" id="3_5wpi8"]
+[ext_resource type="Texture2D" uid="uid://ctb5pfexd8pv3" path="res://Assets/Sprites/MainGameUI/contestants-stands.png" id="3_w4ww5"]
+[ext_resource type="Texture2D" uid="uid://by7j8pncgfjuy" path="res://Assets/Sprites/MainGameUI/mc_sprite-sheet.png" id="4_6ylgf"]
+[ext_resource type="Texture2D" uid="uid://bir4skwsi0cue" path="res://Assets/Sprites/MainGameUI/radical roy.png" id="5_ah2xd"]
+[ext_resource type="Texture2D" uid="uid://ck6yqhauuluel" path="res://Assets/Sprites/MainGameUI/idk-contestant-3.png" id="6_aib3f"]
+[ext_resource type="Texture2D" uid="uid://btkq1l6abysmw" path="res://Assets/Sprites/MainGameUI/duck-host.png" id="7_jbbts"]
+
+[sub_resource type="Animation" id="Animation_7jxwq"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666669),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.955, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d23li"]
+_data = {
+&"idle": SubResource("Animation_7jxwq")
+}
+
+[sub_resource type="Animation" id="Animation_qqo6y"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666669),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.955, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kl0jg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ddiu"]
+_data = {
+&"RESET": SubResource("Animation_kl0jg"),
+&"idle": SubResource("Animation_qqo6y")
+}
+
+[sub_resource type="Animation" id="Animation_vftl2"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-2.9802322e-08, 0.06666665, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.955, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0uiv"]
+_data = {
+&"idle": SubResource("Animation_vftl2")
+}
+
+[sub_resource type="Animation" id="Animation_lplbk"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-2.9802322e-08, 0.06666665, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.955, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sxhv8"]
+_data = {
+&"idle": SubResource("Animation_lplbk")
+}
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -13,6 +123,79 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j8bxf")
 
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1440.0
+offset_bottom = 1080.0
+texture = ExtResource("2_gv7mj")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -388.0
+offset_right = 15.0
+offset_bottom = -223.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(441, 256)
+theme = ExtResource("3_5wpi8")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainKyrata" type="Sprite2D" parent="."]
+position = Vector2(997, 941)
+texture = ExtResource("4_6ylgf")
+offset = Vector2(-1, -319)
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainKyrata"]
+libraries = {
+&"": SubResource("AnimationLibrary_d23li")
+}
+
+[node name="RadicalRoy" type="Sprite2D" parent="."]
+position = Vector2(679, 902)
+texture = ExtResource("5_ah2xd")
+offset = Vector2(5, -284)
+region_rect = Rect2(20, 0, 438.92343, 511.2663)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RadicalRoy"]
+libraries = {
+&"": SubResource("AnimationLibrary_0ddiu")
+}
+
+[node name="IdkContestant3" type="Sprite2D" parent="."]
+position = Vector2(1298, 904)
+texture = ExtResource("6_aib3f")
+offset = Vector2(-3, -294)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IdkContestant3"]
+libraries = {
+&"": SubResource("AnimationLibrary_n0uiv")
+}
+
+[node name="DuckHost" type="Sprite2D" parent="."]
+position = Vector2(227, 865)
+texture = ExtResource("7_jbbts")
+offset = Vector2(2, -294)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DuckHost"]
+libraries = {
+&"": SubResource("AnimationLibrary_sxhv8")
+}
+
+[node name="ContestantStands" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1440.0
+offset_bottom = 1080.0
+texture = ExtResource("3_w4ww5")
+
 [node name="HeartBar" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -20,10 +203,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -497.0
-offset_top = -289.0
-offset_right = -497.0
-offset_bottom = -289.0
+offset_left = -481.0
+offset_top = -204.0
+offset_right = -481.0
+offset_bottom = -204.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.9828105, 1)
@@ -46,22 +229,3 @@ offset_right = 495.0
 layout_mode = 0
 offset_left = 772.0
 offset_right = 772.0
-
-[node name="Score" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -67.0
-offset_top = -388.0
-offset_right = 15.0
-offset_bottom = -223.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(441, 256)
-theme = ExtResource("3_5wpi8")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
