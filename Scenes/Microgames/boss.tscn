@@ -8,7 +8,7 @@
 script = ExtResource("1_ymnwh")
 
 [node name="BossEnemy" parent="." instance=ExtResource("1_p6ywa")]
-position = Vector2(955, 166)
+position = Vector2(723, 166)
 speed = 0.5
 move_range = null
 max_health = null
@@ -49,7 +49,7 @@ level_3_laser_duration = null
 level_3_shot_wave_time = null
 
 [node name="BulletHellCharacter" parent="." instance=ExtResource("2_43h2r")]
-position = Vector2(950, 969)
+position = Vector2(721, 997)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

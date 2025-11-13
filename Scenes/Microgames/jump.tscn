@@ -26,7 +26,7 @@ can_go = false
 can_jump = false
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_leibp")]
-position = Vector2(1358, 716)
+position = Vector2(1060, 716)
 
 [node name="StartTimer" type="Timer" parent="."]
 
@@ -42,7 +42,7 @@ shape = SubResource("RectangleShape2D_2hxla")
 [node name="JumpArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpArea"]
-position = Vector2(541.25, 443)
+position = Vector2(396, 443)
 shape = SubResource("RectangleShape2D_y1uk3")
 
 [connection signal="hit_player" from="Car" to="." method="_on_car_hit_player"]

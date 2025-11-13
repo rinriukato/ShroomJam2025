@@ -4,3 +4,4 @@
 
 [node name="Shoot" type="Node"]
 script = ExtResource("1_otkrk")
+difficulty = 2

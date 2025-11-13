@@ -12,7 +12,7 @@ offset_top = 331.0
 offset_bottom = 331.0
 
 [node name="YesNoItem" parent="." instance=ExtResource("3_bxces")]
-position = Vector2(778, 548)
+position = Vector2(297.5, 548.5)
 
 [node name="YesNoItem2" parent="." instance=ExtResource("3_bxces")]
-position = Vector2(1173, 545)
+position = Vector2(692.5, 545.5)

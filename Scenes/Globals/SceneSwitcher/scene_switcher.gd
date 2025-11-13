@@ -15,6 +15,8 @@ const MICROGAMES = [
 
 const MICROGAME_BOSS = {"title": "Defeat the Boss!", "scene": preload("res://Scenes/Microgames/boss.tscn")}
 
+enum POSES {IDLE, HAPPY, SAD}
+
 @onready var microgame_timer := $MicrogameTimer
 @onready var game_ui := $GameUI
 @onready var microgame_title := $MicrogameTitle
@@ -76,8 +78,10 @@ func _on_game_finished(player_win: bool) -> void:
 		current_points += 1
 		game_ui.set_score(current_points)
 		print("Player won!")
+		game_ui.change_mc_pose(POSES.HAPPY)
 	else:
 		print("Player lost microgame")
+		game_ui.change_mc_pose(POSES.SAD)
 		current_lives -= 1
 		game_ui.remove_heart()
 		
@@ -139,3 +143,4 @@ func _on_rest_timer_timeout() -> void:
 
 func _on_show_title_timer_timeout() -> void:
 	microgame_title.set_title_and_play(next_game["title"])
+	game_ui.change_mc_pose(POSES.IDLE)

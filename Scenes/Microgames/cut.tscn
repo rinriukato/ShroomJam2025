@@ -7,7 +7,7 @@
 script = ExtResource("1_vchra")
 
 [node name="SpawnPoints" type="Node2D" parent="."]
-position = Vector2(439, 1126)
+position = Vector2(214, 1126)
 
 [node name="SpawnPoint1" type="Node2D" parent="SpawnPoints"]
 position = Vector2(200, 0)
